@@ -13,20 +13,20 @@ from pyspark.sql.functions import *
 from datetime import datetime 
 from awsglue.dynamicframe import DynamicFrame
 import boto3
-s3_path = "s3://ecomm-data203/raw_data/"
+s3_path = "Your_path"
 
 df = spark.read.format("csv").option("header", "true").option("inferSchema", "true").load(s3_path)
 df.printSchema()
 df.show(1)
 df = df.drop("category_code")
 df = df.withColumn("brand", when(col("brand").isNull(), "other").otherwise(col("brand"))).show(10)
-output_path = f"s3://ecomm-data203/transformed_data/ecomm_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
+output_path = f"your_s3_path/ecomm_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
 
 df.write.mode("overwrite").option("header" , "true").format("csv").save(output_path)
 s3 = boto3.client('s3')
 
-bucket_name = 'ecomm-data203'
-prefix = 'raw_data/'
+bucket_name = 'Your_bucket'
+prefix = 'raw_data/' #location
 
 # List objects in the bucket with the specified prefix
 response = s3.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
