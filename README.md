@@ -1,4 +1,5 @@
 # Ecomm-datapipeline
+Data taken from kaggle: https://www.kaggle.com/datasets/mkechinov/ecommerce-events-history-in-cosmetics-shop
 End to end ecomm datapipeline using aws S3 , gluespark , snowflake and airflow.
 
 
